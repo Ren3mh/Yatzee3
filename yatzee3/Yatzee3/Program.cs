@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Hej nye spillere!");
 
             //Renés roderi:
             Console.WriteLine("velkommen til yatzee!");
