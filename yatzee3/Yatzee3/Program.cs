@@ -90,7 +90,8 @@
             // Kolonne højde er 17: 1 spillernavn, 14 score muligheder, 2 bonus
             // Række længden er 3-4: 1 Score, 2-3 spillere (mindst 2 spillere)
 
-
+                // sander
+                /*
             // array med terninger initaliceres
             Dice[] dices = new Dice[5];
 
@@ -100,9 +101,8 @@
             }
 
 
-                // sander
+                
             // terningerne kastes
-            /*
             Dice[] RollDices(Dice[] dices, int[] dicesToRoll = null)
             {
 
