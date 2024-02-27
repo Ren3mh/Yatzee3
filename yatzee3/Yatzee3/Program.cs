@@ -2,6 +2,23 @@
 {
     internal class Program
     {
+
+        public class Dice
+        {
+            Random rnd = new Random();
+
+            // instance variables
+            public int diceNumber = 1;
+
+            // methods
+            public int RollDice()
+            {
+                diceNumber = rnd.Next(1, 7);
+                return diceNumber;
+            }
+
+        }
+
         static void Main(string[] args)
         {
 
