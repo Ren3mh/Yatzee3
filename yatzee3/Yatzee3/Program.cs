@@ -19,6 +19,37 @@
 
         }
 
+        public class Scoreboard
+        {
+            public class Kombination
+            {
+                public string Name;
+                public int Value;
+
+                // a constructor
+                public Kombination(string name)
+                {
+                    Name = name;
+                    Value = 0;
+
+                }
+
+            }
+
+
+            // instance variables
+            public Kombination par1 = new Kombination("Par 1");
+            public Kombination par2 = new Kombination("Par 2");
+
+            // methods
+            public Kombination setScore(Kombination kombination, int score)
+            {
+                kombination.Value = score;
+                return kombination;
+            }
+
+        }
+
         static void Main(string[] args)
         {
 
@@ -72,13 +103,62 @@
             //playerCount = playerCount + 1;
             //string[,] scoreBoard = new string[playerCount, 17];
 
-
-
-
-
-            
-
             //Console.ReadLine();
+
+
+                // sander
+                /*
+            // array med terninger initaliceres
+            Dice[] dices = new Dice[5];
+
+            for (int i = 0; i < dices.Length; i++)
+            {
+                dices[i] = new Dice();
+            }
+
+
+                
+            // terningerne kastes
+            Dice[] RollDices(Dice[] dices, int[] dicesToRoll = null)
+            {
+
+                // vælger terningerne der kaste
+                if (dicesToRoll == null)
+                    dicesToRoll = new int[5];
+
+                Console.WriteLine("Terningerne kastes!");
+
+                foreach (int roll in dicesToRoll)
+                    dices[roll].RollDice();
+
+                for (int i = 0; i < 5; i++)
+                    Console.WriteLine("\tTerning {0} = {1}", i + 1, dices[i].diceNumber);
+
+                return null;
+            }
+
+            RollDices(dices);
+
+            //terningerne vælges
+            Console.WriteLine("Vælg terninger der skal gemmes");
+
+            string input = Console.ReadLine();
+
+            int[] saves = new int[input.Length];
+
+            for (int i = 0; i < input.Length; i++)
+                saves[i] = int.Parse(input[i].ToString());
+
+            Console.Write("Terninger der gemmes: ");
+            foreach (int i in saves)
+                Console.Write(i + ", ");
+
+            Console.WriteLine("Terningerne kastes igen");
+            RollDices(dices, saves);
+            */
+
+            Console.ReadLine();
+
         }
     }
 }
