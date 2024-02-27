@@ -90,6 +90,57 @@
             // Kolonne højde er 17: 1 spillernavn, 14 score muligheder, 2 bonus
             // Række længden er 3-4: 1 Score, 2-3 spillere (mindst 2 spillere)
 
+
+            // array med terninger initaliceres
+            Dice[] dices = new Dice[5];
+
+            for (int i = 0; i < dices.Length; i++)
+            {
+                dices[i] = new Dice();
+            }
+
+
+                // sander
+            // terningerne kastes
+            /*
+            Dice[] RollDices(Dice[] dices, int[] dicesToRoll = null)
+            {
+
+                // vælger terningerne der kaste
+                if (dicesToRoll == null)
+                    dicesToRoll = new int[5];
+
+                Console.WriteLine("Terningerne kastes!");
+
+                foreach (int roll in dicesToRoll)
+                    dices[roll].RollDice();
+
+                for (int i = 0; i < 5; i++)
+                    Console.WriteLine("\tTerning {0} = {1}", i + 1, dices[i].diceNumber);
+
+                return null;
+            }
+
+            RollDices(dices);
+
+            //terningerne vælges
+            Console.WriteLine("Vælg terninger der skal gemmes");
+
+            string input = Console.ReadLine();
+
+            int[] saves = new int[input.Length];
+
+            for (int i = 0; i < input.Length; i++)
+                saves[i] = int.Parse(input[i].ToString());
+
+            Console.Write("Terninger der gemmes: ");
+            foreach (int i in saves)
+                Console.Write(i + ", ");
+
+            Console.WriteLine("Terningerne kastes igen");
+            RollDices(dices, saves);
+            */
+
             Console.ReadLine();
         }
     }
