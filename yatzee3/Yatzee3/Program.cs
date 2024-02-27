@@ -1,4 +1,4 @@
-﻿namespace Yatzee3
+﻿    namespace Yatzee3
 {
     internal class Program
     {
