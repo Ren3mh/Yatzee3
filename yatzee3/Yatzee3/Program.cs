@@ -74,6 +74,7 @@
                     "\tOg der er bonus ved 63: 50p og 93: 100p \n\n)");
             }
 
+
             //Laver scoreboard med 3*17 til 2 spillere med score kategorier og spiller1 og spiller2, printer derefter til consol
             public static void createScoreBoard2()
             {
@@ -132,6 +133,14 @@
                 Scoreboard.createScoreBoard2();
                
             }
+
+
+            //// 1: lav scoreboard-array med playerCount 2: udfyld scoreNavne i søjle 0
+            ////Scoreboard opstart, laver en 2-dimensionel array som har række længde: spillerantal + 1. og en kolonne højde: 17
+            ////Kolonne højde er 17: 1 spillernavn, 14 score muligheder, 2 bonus
+            ////Række længden er 3 - 4: 1 Score, 2 - 3 spillere(mindst 2 spillere)
+            //playerCount = playerCount + 1;
+            //string[,] scoreBoard = new string[playerCount, 17];
         }
 
         static void Main(string[] args)
@@ -165,6 +174,7 @@
 
                 }
             } while (chooseAgain == 0);
+
             
             //enter eller whatever for continue
             Console.ReadLine();
@@ -183,6 +193,104 @@
             
 
             Console.ReadLine();
+
+        }
+
+        static int Play(int turns = 3)
+        {
+            int score = 0;
+
+            // array med terninger og initialiseres
+            Dice[] dices = CreateDices();
+
+            // turene starter
+            for (int i = 0; i < turns; i++)
+            {
+                if (i == turns - 1)
+                {
+                    Console.WriteLine("Det er din {0}. og sidste tur!", i + 1);
+
+                    // terningerne kastes en sidste gang
+                    RollDices(dices);
+                    break;
+                }
+
+                else
+                {
+                    Console.WriteLine("Din {0}. tur.", i + 1);
+
+                    // terningerne kastes
+                    RollDices(dices);
+
+                    //terningerne vælges/gemmes
+                    DicesToKeep(dices);
+                }
+            }
+
+            PrintDices(dices);
+
+            foreach (Dice dice in dices)
+                score += dice.diceNumber;
+
+            //int score = terning1.diceNumber + terning2.diceNumber;
+            //Console.WriteLine("Terning: 1, 2: {0}, {1}", terning1.diceNumber, terning2.diceNumber);
+            return score;
+        }
+
+        static void RollDices(Dice[] dices)
+        {
+            Console.WriteLine("Terningerne kastes!");
+
+            for (int i = 0; i < dices.Length; i++)
+            {
+                if (dices[i].keepDice == false)
+                    dices[i].RollDice();
+                Console.WriteLine("Terning: {0} = {1}", i + 1, dices[i].diceNumber);
+            }
+        }
+
+        static void DicesToKeep(Dice[] dices)
+        {
+            //sætter keepDice til false
+            foreach (Dice dice in dices)
+                dice.keepDice = false;
+
+            Console.Write("Vælg terninger der skal gemmes: ");
+
+            string input = Console.ReadLine();
+            for (int i = 0; i < input.Length; i++)
+            {
+                int keep = int.Parse(input[i].ToString()) - 1;
+                dices[keep].keepDice = true;
+            }
+
+            PrintDices(dices);
+        }
+
+        static void PrintDices(Dice[] dices)
+        {
+            Console.WriteLine("Gemte terninger: ");
+            for (int i = 0; i < dices.Length; i++)
+            {
+                switch (dices[i].keepDice)
+                {
+                    case true:
+                        Console.WriteLine("\t Terning: {0} = {1}", i + 1, dices[i].diceNumber);
+                        break;
+
+                    case false:
+                        break;
+                }
+            }
+            Console.WriteLine();
+        }
+
+        static Dice[] CreateDices(int amount = 5)
+        {
+            Dice[] dices = new Dice[amount];
+
+            for (int i = 0; i < 5; i++)
+
 
         }
 
