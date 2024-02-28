@@ -9,6 +9,7 @@
 
             // instance variables
             public int diceNumber = 1;
+            public bool keepDice = false;
 
             // methods
             public int RollDice()
@@ -106,59 +107,109 @@
             //Console.ReadLine();
 
 
-                // sander
-                /*
-            // array med terninger initaliceres
-            Dice[] dices = new Dice[5];
-
-            for (int i = 0; i < dices.Length; i++)
-            {
-                dices[i] = new Dice();
-            }
-
-
-                
-            // terningerne kastes
-            Dice[] RollDices(Dice[] dices, int[] dicesToRoll = null)
-            {
-
-                // vælger terningerne der kaste
-                if (dicesToRoll == null)
-                    dicesToRoll = new int[5];
-
-                Console.WriteLine("Terningerne kastes!");
-
-                foreach (int roll in dicesToRoll)
-                    dices[roll].RollDice();
-
-                for (int i = 0; i < 5; i++)
-                    Console.WriteLine("\tTerning {0} = {1}", i + 1, dices[i].diceNumber);
-
-                return null;
-            }
-
-            RollDices(dices);
-
-            //terningerne vælges
-            Console.WriteLine("Vælg terninger der skal gemmes");
-
-            string input = Console.ReadLine();
-
-            int[] saves = new int[input.Length];
-
-            for (int i = 0; i < input.Length; i++)
-                saves[i] = int.Parse(input[i].ToString());
-
-            Console.Write("Terninger der gemmes: ");
-            foreach (int i in saves)
-                Console.Write(i + ", ");
-
-            Console.WriteLine("Terningerne kastes igen");
-            RollDices(dices, saves);
-            */
+           
 
             Console.ReadLine();
 
+        }
+
+        static int Play(int turns = 3)
+        {
+            int score = 0;
+
+            // array med terninger og initialiseres
+            Dice[] dices = CreateDices();
+
+            // turene starter
+            for (int i = 0; i < turns; i++)
+            {
+                if (i == turns - 1)
+                {
+                    Console.WriteLine("Det er din {0}. og sidste tur!", i + 1);
+
+                    // terningerne kastes en sidste gang
+                    RollDices(dices);
+                    break;
+                }
+
+                else
+                {
+                    Console.WriteLine("Din {0}. tur.", i + 1);
+
+                    // terningerne kastes
+                    RollDices(dices);
+
+                    //terningerne vælges/gemmes
+                    DicesToKeep(dices);
+                }
+            }
+
+            PrintDices(dices);
+
+            foreach (Dice dice in dices)
+                score += dice.diceNumber;
+
+            //int score = terning1.diceNumber + terning2.diceNumber;
+            //Console.WriteLine("Terning: 1, 2: {0}, {1}", terning1.diceNumber, terning2.diceNumber);
+            return score;
+        }
+
+        static void RollDices(Dice[] dices)
+        {
+            Console.WriteLine("Terningerne kastes!");
+
+            for (int i = 0; i < dices.Length; i++)
+            {
+                if (dices[i].keepDice == false)
+                    dices[i].RollDice();
+                Console.WriteLine("Terning: {0} = {1}", i + 1, dices[i].diceNumber);
+            }
+        }
+
+        static void DicesToKeep(Dice[] dices)
+        {
+            //sætter keepDice til false
+            foreach (Dice dice in dices)
+                dice.keepDice = false;
+
+            Console.Write("Vælg terninger der skal gemmes: ");
+
+            string input = Console.ReadLine();
+            for (int i = 0; i < input.Length; i++)
+            {
+                int keep = int.Parse(input[i].ToString()) - 1;
+                dices[keep].keepDice = true;
+            }
+
+            PrintDices(dices);
+        }
+
+        static void PrintDices(Dice[] dices)
+        {
+            Console.WriteLine("Gemte terninger: ");
+            for (int i = 0; i < dices.Length; i++)
+            {
+                switch (dices[i].keepDice)
+                {
+                    case true:
+                        Console.WriteLine("\t Terning: {0} = {1}", i + 1, dices[i].diceNumber);
+                        break;
+
+                    case false:
+                        break;
+                }
+            }
+            Console.WriteLine();
+        }
+
+        static Dice[] CreateDices(int amount = 5)
+        {
+            Dice[] dices = new Dice[amount];
+
+            for (int i = 0; i < 5; i++)
+                dices[i] = new Dice();
+
+            return dices;
         }
     }
 }
