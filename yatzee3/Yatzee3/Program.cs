@@ -60,7 +60,7 @@
         public class ScoreBoard
         {
             //Laver scoreboard med 3*17 til 2 spillere med score kategorier og spiller1 og spiller2, printer derefter til consol
-            public static void createScoreBoard2()
+            public static string[,] createScoreBoard2()
             {
                 string[,] scoreBoardArr = new string[,]  { { "Score", "Player1", "Player2" }, { "1'ere", "", "" }, { "2'ere", "", "" }, { "3'ere", "", "" },
                     { "4'ere", "", "" }, { "5'ere", "", "" }, { "6'ere", "", "" }, { "1 Par", "", "" }, { "2 Par", "", "" }, { "3 ens", "", "" }, 
@@ -77,12 +77,12 @@
                     }
                     System.Console.WriteLine();
                 }
-
+                return scoreBoardArr;
 
             }
 
             //Laver scoreboard med 4*17 til 3 spillere med score kategorier og spiller1, spiller2 og spiller3 printer derefter til consol
-            public static void createScoreBoard3()
+            public static string[,] createScoreBoard3()
             {
                 string[,] scoreBoardArr = new string[,]  { { "Score", "Player1", "Player2", "Player3" }, { "1'ere", "", "", "" }, { "2'ere", "", "", "" }, { "3'ere", "", "", "" },
                     { "4'ere", "", "", "" }, { "5'ere", "", "", "" }, { "6'ere", "", "", "" }, { "1 Par", "", "", "" }, { "2 Par", "", "", "" }, { "3 ens", "", "", "" },
@@ -100,6 +100,7 @@
                     System.Console.WriteLine();
                 }
 
+                return scoreBoardArr;
 
             }
 
@@ -178,6 +179,7 @@
 
             //Console.ReadLine();
 
+            
         }
     }
 }
