@@ -59,19 +59,18 @@
             {
                 
                 //Velkost og Regler
-                Console.WriteLine("Hej nye spillere!");
 
-                Console.WriteLine("Velkommen til yatzee!\n\n");
+                string velkomstBesked = "Hej nye spillere!\nVelkommen til yatzee!\n\n";
+                string standardRegler = @"REGLER:
+    1.En spiller slår med terningerne.
+    2.Spilleren kan vælge at beholde et eller flere terninger og kaste de resterende igen.
+    3.Spilleren har tre kast i alt til at opnå den ønskede kombination.
+    4.Når spilleren er tilfreds med et kast, skal de vælge en kombination fra scorekortet og notere summen af de valgte terninger i feltet.
+    5.En kombination kan kun bruges én gang.
+    6.Spillet fortsætter med, at spillerne skiftes til at kaste terningerne.
+    Og der er bonus ved 63: 50p og 93: 100p" + "\n";
 
-                Console.WriteLine("REGLER:\n" +
-                    "\t1.En spiller slår med terningerne. \n\n" +
-                    "\t2.Spilleren kan vælge at beholde et eller flere terninger og kaste de resterende igen. \n\n" +
-                    "\t3.Spilleren har tre kast i alt til at opnå den ønskede kombination.\n\n" +
-                    "\t4.Når spilleren er tilfreds med et kast, skal de vælge en kombination fra scorekortet \n" +
-                    "og notere summen af de valgte terninger i feltet.\n\n" +
-                    "\t5.En kombination kan kun bruges én gang.\n\n" +
-                    "\t6.Spillet fortsætter med, at spillerne skiftes til at kaste terningerne.\n\n" +
-                    "\tOg der er bonus ved 63: 50p og 93: 100p \n\n)");
+                Console.WriteLine(velkomstBesked + standardRegler);
             }
 
 
