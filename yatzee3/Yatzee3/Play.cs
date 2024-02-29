@@ -22,7 +22,7 @@ namespace Yatzee3
 
         }
 
-        public static int Turn(Program.ScoreBoard scoreBoard, int turns = 3)
+        public static void Turn(string[,] scoreBoard, int turns = 3)
         {
             int score = 0;
 
@@ -53,9 +53,8 @@ namespace Yatzee3
                 }
             }
 
-            score = Score.ChooseScore(dices);
+            scoreBoard = Score.ChooseScore(dices, scoreBoard);
 
-            return score;
         }
 
         static void RollDices(Dice[] dices)
@@ -310,15 +309,15 @@ namespace Yatzee3
             }
         }
 
-        public static int ChooseScore(Dice[] dices)
+        public static string[,] ChooseScore(Dice[] dices, string[,] scoreBoard)
         {
             Kombinationer kombinationer = new Kombinationer(dices);
 
-            Program.ScoreBoard.
-
             Console.WriteLine("Dine mulige Scores:");
-
             
+            Program.ScoreBoard.PrintScoreBoard(scoreBoard);
+
+            return scoreBoard;
 
         }
     }

@@ -59,13 +59,9 @@
 
         public class ScoreBoard
         {
-            //Laver scoreboard med 3*17 til 2 spillere med score kategorier og spiller1 og spiller2, printer derefter til consol
-            public static string[,] createScoreBoard2()
-            {
-                string[,] scoreBoardArr = new string[,]  { { "Score", "Player1", "Player2" }, { "1'ere", "", "" }, { "2'ere", "", "" }, { "3'ere", "", "" },
-                    { "4'ere", "", "" }, { "5'ere", "", "" }, { "6'ere", "", "" }, { "1 Par", "", "" }, { "2 Par", "", "" }, { "3 ens", "", "" }, 
-                    { "4 ens", "", "" }, { "Li straigth", "", "" }, { "St straight", "", "" }, { "Chancen", "", "" }, { "Yatzee", "", "" }, { "Bonus63", "", "" }, { "Bonus93", "", "" }, };
 
+            public static void PrintScoreBoard(string[,] scoreBoardArr)
+            {
                 for (int i = 0; i < scoreBoardArr.GetLength(0); i++)
                 {
                     for (int j = 0; j < scoreBoardArr.GetLength(1); j++)
@@ -77,6 +73,17 @@
                     }
                     System.Console.WriteLine();
                 }
+            }
+
+            //Laver scoreboard med 3*17 til 2 spillere med score kategorier og spiller1 og spiller2, printer derefter til consol
+            public static string[,] createScoreBoard2()
+            {
+                string[,] scoreBoardArr = new string[,]  { { "Score", "Player1", "Player2" }, { "1'ere", "", "" }, { "2'ere", "", "" }, { "3'ere", "", "" },
+                    { "4'ere", "", "" }, { "5'ere", "", "" }, { "6'ere", "", "" }, { "1 Par", "", "" }, { "2 Par", "", "" }, { "3 ens", "", "" }, 
+                    { "4 ens", "", "" }, { "Li straigth", "", "" }, { "St straight", "", "" }, { "Chancen", "", "" }, { "Yatzee", "", "" }, { "Bonus63", "", "" }, { "Bonus93", "", "" }, };
+
+                PrintScoreBoard(scoreBoardArr);
+
                 return scoreBoardArr;
 
             }
@@ -88,17 +95,7 @@
                     { "4'ere", "", "", "" }, { "5'ere", "", "", "" }, { "6'ere", "", "", "" }, { "1 Par", "", "", "" }, { "2 Par", "", "", "" }, { "3 ens", "", "", "" },
                     { "4 ens", "", "", "" }, { "Li straigth", "", "", "" }, { "St straight", "", "", "" }, { "Chancen", "", "", "" }, { "Yatzee", "", "", "" }, { "Bonus63", "", "", "" }, { "Bonus93", "", "", "" }, };
 
-                for (int i = 0; i < scoreBoardArr.GetLength(0); i++)
-                {
-                    for (int j = 0; j < scoreBoardArr.GetLength(1); j++)
-                    {
-                        {
-                            System.Console.Write($"{scoreBoardArr[i, j]} ");
-                        }
-                        System.Console.Write("\t\t");
-                    }
-                    System.Console.WriteLine();
-                }
+                PrintScoreBoard(scoreBoardArr);
 
                 return scoreBoardArr;
 
@@ -130,6 +127,13 @@
 
         static void Main(string[] args)
         {
+
+            // skaber scoreboard
+            string[,] scoreBoard = ScoreBoard.createScoreBoard2();
+
+            //det bliver første spillers tur
+            Play.Turn(scoreBoard);
+
 
             //Scoreboard.Velkomst();
 
