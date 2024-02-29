@@ -7,7 +7,7 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace Yatzee3
 {
-    internal class Play1
+    internal class Play
     {
         public class Dice
         {
