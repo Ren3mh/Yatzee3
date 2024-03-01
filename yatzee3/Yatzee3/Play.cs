@@ -71,11 +71,9 @@ namespace Yatzee3
             dices_[3].diceNumber = 1;
             dices_[4].diceNumber = 1;
 
-            int[] choosenScore = Score.ChooseScore(dices_);
+            int[] choosenScore = Score.ChooseScore(dices_, scoreBoard, player);
 
             scoreBoard[player, choosenScore[0]+1] = Convert.ToString(choosenScore[1]);
-
-            
         }
 
         static void RollDices(Dice[] dices)
@@ -145,21 +143,6 @@ namespace Yatzee3
         public class Kombinationer
         {
             // kombinationer
-            public int EnEre;
-            public int ToEre;
-            public int TreEre;
-            public int FireEre;
-            public int FemEre;
-            public int SeksEre;
-            public int EtPar;
-            public int ToPar;
-            public int TreEns;
-            public int FireEns;
-            public int LilleStraight;
-            public int StorStraight;
-            public int Chancen_;
-            public int Yatzy_;
-
             public int[] Scores = new int[14];
             public string[] ScoreNames = 
             {
@@ -198,21 +181,6 @@ namespace Yatzee3
                 Scores[11] = Straight(dices, true);
                 Scores[12] = Chancen(dices);
                 Scores[13] = Yatzy(dices);
-
-                EnEre = SameNumber(dices, 1);
-                ToEre = SameNumber(dices, 2);
-                TreEre = SameNumber(dices, 3);
-                FireEre = SameNumber(dices, 4);
-                FemEre = SameNumber(dices, 5);
-                SeksEre = SameNumber(dices, 6);
-                EtPar = Pair(dices);
-                ToPar = TwoPairs(dices);
-                TreEns = FindxSame(dices, 3);
-                FireEns = FindxSame(dices, 4);
-                LilleStraight = Straight(dices, false);
-                StorStraight = Straight(dices, true);
-                Chancen_ = Chancen(dices);
-                Yatzy_ = Yatzy(dices);
 
                 // tjek score ved 1'ere - 6'ere
                 int SameNumber(int[] dicesNumbers, int number)
@@ -348,21 +316,23 @@ namespace Yatzee3
             }
         }
 
-        public static int[] ChooseScore(Dice[] dices) // retunerer {scorename som int, score}
+        public static int[] ChooseScore(Dice[] dices, string[,] scoreBoard, int player) // retunerer {scorename som int, score}
         {
             Kombinationer kombi = new Kombinationer(dices);
             int[] choosenScore = new int[2];
 
             Console.WriteLine("Dine mulige Scores:");
-            for (int i = 0; i < 14; i++)
+            for (int i = 1; i < 14; i++)
             {
-                Console.WriteLine($"\tTast {i+1} for : \t{kombi.ScoreNames[i]}: {kombi.Scores[i]}");
+                if (scoreBoard[i,player] != "")
+                    continue;
+                Console.WriteLine($"\tTast {i} for:\t{kombi.ScoreNames[i-1]}: {kombi.Scores[i-1]}");
             }
 
             Console.Write("Hvad vælger du? ");
             int input = int.Parse(Console.ReadLine());
 
-            choosenScore[0] = input -1 ;
+            choosenScore[0] = input;
             choosenScore[1] = kombi.Scores[input - 1];
 
             return choosenScore;

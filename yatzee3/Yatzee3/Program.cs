@@ -99,8 +99,9 @@
             
 
 
-            // initialiserer scoreboard
+            // initialiserer scoreboard til test
             string[,] scoreBoard = ScoreBoard.createScoreBoard2();
+            scoreBoard[1, 1] = "5";
 
             //det bliver første spillers tur
             Play.Turn(scoreBoard, 1);
