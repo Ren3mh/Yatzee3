@@ -31,7 +31,7 @@ namespace Yatzee3
             Dice[] dices = CreateDices();
 
             // turene starter
-            /*
+            
             for (int i = 0; i < turns; i++)
             {
                 if (i == turns - 1)
@@ -54,7 +54,7 @@ namespace Yatzee3
                     DicesToKeep(dices);
                 }
             }
-            */
+            
 
 
                         //test
@@ -95,15 +95,21 @@ namespace Yatzee3
             foreach (Dice dice in dices)
                 dice.keepDice = false;
 
-            Console.Write("Vælg terninger der skal gemmes: ");
-
-            string input = Console.ReadLine();
-            
-            for (int i = 0; i < input.Length; i++)
+            do
             {
-                int keep = int.Parse(input[i].ToString()) - 1;
-                dices[keep].keepDice = true;
-            }
+                try
+                {
+                    int[] input = Input.ArrInteger("Vælg terninger der skal gemmes: ", maxNumbers: 6);
+
+                    foreach (int i in input)
+                        dices[i].keepDice = true;
+                }
+                catch (IndexOutOfRangeException)
+                { Console.WriteLine("Du kan kun indtaste tal mellem 1-6.\nØnsker du ikke at gemme nogle tryk enter."); }
+
+                break;
+
+            } while (true);
 
             PrintDices(dices);
         }
@@ -375,6 +381,7 @@ namespace Yatzee3
                     }
                     catch (Exception ex)
                     { Console.WriteLine("Du skal svare med et tal."); }
+
                 } while (true);
 
                 foreach (int answer in possibleAnswers)
@@ -385,6 +392,50 @@ namespace Yatzee3
 
                 PrintPossibleAnswers(errorMessage, Array.ConvertAll(possibleAnswers, Convert.ToString));
 
+            } while (true);
+        }
+
+        public static int[] ArrInteger(string question, int minNumbers = -1, int maxNumbers = -1)
+        {
+            do
+            {
+
+                Console.WriteLine(question);
+
+                string reply = Console.ReadLine();
+
+                int[] answer = new int[reply.Length];
+                
+                try
+                {
+                    for (int i = 0; i < answer.Length; i++)
+                    {
+                        answer[i] = int.Parse(reply[i].ToString());
+                    }
+                }
+                catch (Exception)
+                { 
+                    Console.WriteLine("Du skal indtaste en talrække uden mellemrum, og afslutte med enter.");
+                    continue;
+                }
+
+                int answerLength = answer.Length;
+
+                if (maxNumbers == -1 && minNumbers == -1)
+                    return answer;
+                
+                else if (answerLength >= minNumbers && maxNumbers == -1)
+                    return answer;
+
+                else if (answerLength <= maxNumbers && minNumbers == -1)
+                    return answer;
+
+                else if (answerLength <= maxNumbers && answerLength >= minNumbers)
+                    return answer;
+
+                else
+                    Console.WriteLine("Du kan indtaste mellem {0} og {1} tal.", minNumbers, maxNumbers);
+        
             } while (true);
         }
 
@@ -426,6 +477,8 @@ namespace Yatzee3
                     Console.WriteLine(possibleAnswers[i] + ".");
             }
         }
+
+        
     }
 
 }

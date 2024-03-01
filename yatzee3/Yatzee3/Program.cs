@@ -52,7 +52,7 @@
                     { "4'ere", "", "" }, { "5'ere", "", "" }, { "6'ere", "", "" }, { "1 Par", "", "" }, { "2 Par", "", "" }, { "3 ens", "", "" }, 
                     { "4 ens", "", "" }, { "Li straigth", "", "" }, { "St straight", "", "" }, { "Chancen", "", "" }, { "Yatzee", "", "" }, { "Bonus63", "", "" }, { "Bonus93", "", "" }, };
 
-                PrintScoreBoard(scoreBoardArr);
+                //PrintScoreBoard(scoreBoardArr);
 
                 return scoreBoardArr;
 
@@ -98,22 +98,25 @@
         static void Main(string[] args)
         {
 
-            
+            // spillet starter
+            StartNewGame.Velkomst();
 
-
-            // initialiserer scoreboard til test
+            // initialiserer scoreboard 
             string[,] scoreBoard = ScoreBoard.createScoreBoard2();
-            scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5
+            scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
 
-            //det bliver første spillers tur
-            //Play.Turn(scoreBoard, 1);
-            //Program.ScoreBoard.PrintScoreBoard(scoreBoard);
+            // turene kører
+            for (int i = 0; i < 4; i++)
+            {
+                //det bliver første spillers tur
+                Play.Turn(scoreBoard, 1);
+                Program.ScoreBoard.PrintScoreBoard(scoreBoard);
 
-            int[] possibleAnswers = { 1,2,3 };
+                Console.Write("\nTryk inter for at fortsætte spillet.");
+                Console.ReadKey();
 
-            int a = Input.IntQuestion("Du skal vælge et tal mellem 1-3: ", possibleAnswers, "Tal mellem 1-3!!");
-
-            Console.WriteLine(a);
+                Console.Clear();
+            }
 
             Console.ReadKey();
 
