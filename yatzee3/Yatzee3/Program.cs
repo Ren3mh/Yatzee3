@@ -106,10 +106,12 @@
             scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
 
             // turene kører
-            for (int i = 0; i < 4; i++)
+            int turns = 4;
+            for (int i = 0; i < turns; i++)
             {
                 //det bliver første spillers tur
-                Play.Turn(scoreBoard, 1);
+                int player = 1;
+                Play.Turn(scoreBoard, player);
                 Program.ScoreBoard.PrintScoreBoard(scoreBoard);
 
                 Console.Write("\nTryk inter for at fortsætte spillet.");
