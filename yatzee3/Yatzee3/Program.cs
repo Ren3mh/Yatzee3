@@ -2,39 +2,7 @@
 {
     internal class Program
     {
-        /*
-        public class Scoreboard
-        {
-            public class Kombination
-            {
-                public string Name;
-                public int Value;
-
-                // a constructor
-                public Kombination(string name)
-                {
-                    Name = name;
-                    Value = 0;
-
-                }
-
-            }
-
-
-            // instance variables
-            public Kombination par1 = new Kombination("Par 1");
-            public Kombination par2 = new Kombination("Par 2");
-
-            // methods
-            public Kombination setScore(Kombination kombination, int score)
-            {
-                kombination.Value = score;
-                return kombination;
-            }
-
-        }
-        */
-
+        
         public class StartNewGame
         {
             public static void Velkomst()
@@ -131,7 +99,7 @@
             
 
 
-            // skaber scoreboard
+            // initialiserer scoreboard
             string[,] scoreBoard = ScoreBoard.createScoreBoard2();
 
             //det bliver første spillers tur
