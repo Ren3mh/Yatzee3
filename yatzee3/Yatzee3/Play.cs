@@ -2,7 +2,8 @@
 
 namespace Yatzee3
 {
-    // der skal laves exception handling ift. valg af terninger i "input", i DicesToKeep
+    // der skal laves exception handling ift. valg af terninger i "input", i Play.DicesToKeep
+    // der skal laves exception handling ift. valg af score i "input", i Score.ChooseScore
     internal class Play
     {
         public class Dice
@@ -22,7 +23,7 @@ namespace Yatzee3
 
         }
 
-        public static void Turn(string[,] scoreBoard, int turns = 3)
+        public static void Turn(string[,] scoreBoard, int player, int turns = 3)
         {
             int score = 0;
 
@@ -30,6 +31,7 @@ namespace Yatzee3
             Dice[] dices = CreateDices();
 
             // turene starter
+            /*
             for (int i = 0; i < turns; i++)
             {
                 if (i == turns - 1)
@@ -52,9 +54,28 @@ namespace Yatzee3
                     DicesToKeep(dices);
                 }
             }
+            */
 
-            scoreBoard = Score.ChooseScore(dices, scoreBoard);
 
+                        //test
+            // dices instantiates til test
+            Play.Dice[] dices_ = new Play.Dice[5];
+            for (int i = 0; i < 5; i++)
+            {
+                dices_[i] = new Play.Dice();
+
+            }
+            dices_[0].diceNumber = 1;
+            dices_[1].diceNumber = 1;
+            dices_[2].diceNumber = 1;
+            dices_[3].diceNumber = 1;
+            dices_[4].diceNumber = 1;
+
+            int[] choosenScore = Score.ChooseScore(dices_);
+
+            scoreBoard[player, choosenScore[0]+1] = Convert.ToString(choosenScore[1]);
+
+            
         }
 
         static void RollDices(Dice[] dices)
@@ -140,6 +161,23 @@ namespace Yatzee3
             public int Yatzy_;
 
             public int[] Scores = new int[14];
+            public string[] ScoreNames = 
+            {
+                "1'ere",
+                "2'ere",
+                "3,ere",
+                "4'ere",
+                "5'ere",
+                "6,ere",
+                "Et Par",
+                "To Par",
+                "Tre Ens",
+                "Fire Ens",
+                "Lille Straight",
+                "Stor Straight",
+                "Chancen",
+                "Yatzy"
+            };
 
             public Kombinationer(Play.Dice[] dices_)
             {
@@ -309,16 +347,24 @@ namespace Yatzee3
             }
         }
 
-        public static string[,] ChooseScore(Dice[] dices, string[,] scoreBoard)
+        public static int[] ChooseScore(Dice[] dices) // retunerer {scorename som int, score}
         {
-            Kombinationer kombinationer = new Kombinationer(dices);
+            Kombinationer kombi = new Kombinationer(dices);
+            int[] choosenScore = new int[2];
 
             Console.WriteLine("Dine mulige Scores:");
-            
-            Program.ScoreBoard.PrintScoreBoard(scoreBoard);
+            for (int i = 0; i < 14; i++)
+            {
+                Console.WriteLine($"\tTast {i+1} for : \t{kombi.ScoreNames[i]}: {kombi.Scores[i]}");
+            }
 
-            return scoreBoard;
+            Console.Write("Hvad vælger du? ");
+            int input = int.Parse(Console.ReadLine());
 
+            choosenScore[0] = input -1 ;
+            choosenScore[1] = kombi.Scores[input - 1];
+
+            return choosenScore;
         }
     }
 }

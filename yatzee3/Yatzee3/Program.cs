@@ -128,13 +128,16 @@
         static void Main(string[] args)
         {
 
+            
+
+
             // skaber scoreboard
             string[,] scoreBoard = ScoreBoard.createScoreBoard2();
 
             //det bliver første spillers tur
-            Play.Turn(scoreBoard);
-
-
+            Play.Turn(scoreBoard, 1);
+            Program.ScoreBoard.PrintScoreBoard(scoreBoard);
+            Console.ReadKey();
             //Scoreboard.Velkomst();
 
             ////Spiller antal valg med do-while og switch til at vælge 2 eller 3 spillere (burde måske laves med try/catch/exception)
