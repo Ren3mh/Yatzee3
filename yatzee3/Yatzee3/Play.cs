@@ -338,4 +338,94 @@ namespace Yatzee3
             return choosenScore;
         }
     }
+
+    internal class Input
+    {
+        public static string StringQuestion(string question, string[] possibleAnswers, string errorMessage)
+        {
+            do
+            {
+                Console.Write(question);
+                string reply = Console.ReadLine().ToLower();
+
+                foreach (string answer in possibleAnswers)
+                {
+                    if (answer.ToLower() == reply)
+                        return answer;
+                }
+
+                PrintPossibleAnswers(errorMessage, possibleAnswers);
+
+            } while (true);
+        }
+
+        public static int IntQuestion(string question, int[] possibleAnswers, string errorMessage)
+        {
+            do
+            {
+                int reply;
+
+                do
+                {
+                    Console.Write(question);
+                    try
+                    {
+                        reply = int.Parse(Console.ReadLine());
+                        break;
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine("Du skal svare med et tal."); }
+                } while (true);
+
+                foreach (int answer in possibleAnswers)
+                {
+                    if (answer == reply)
+                        return answer;
+                }
+
+                PrintPossibleAnswers(errorMessage, Array.ConvertAll(possibleAnswers, Convert.ToString));
+
+            } while (true);
+        }
+
+        public static bool YesNo()
+        {
+            do
+            {
+                Console.Write(", hvad vælger du y/n? ");
+                string reply = Console.ReadLine();
+
+                switch (reply)
+                {
+                    case "Y":
+                    case "y":
+                        return true;
+
+                    case "N":
+                    case "n":
+                        return false;
+
+                    default:
+                        Console.Write("Du skal svare med \"y\" eller \"n\"");
+                        break;
+                }
+            } while (true);
+        }
+
+        static void PrintPossibleAnswers(string errorMessage, string[] possibleAnswers)
+        {
+            Console.WriteLine(errorMessage + ". Dine svarmuligheder er:"); // fandt intet muligt svar
+
+            for (int i = 0; i < possibleAnswers.Length; i++)
+            {
+                if (i != possibleAnswers.Length - 1)
+                {
+                    Console.Write(possibleAnswers[i] + ", ");
+                }
+                else
+                    Console.WriteLine(possibleAnswers[i] + ".");
+            }
+        }
+    }
+
 }

@@ -5,13 +5,7 @@
         
         public class StartNewGame
         {
-            public static void Velkomst()
-            {
-
-                //Velkost og Regler
-
-                string velkomstBesked = "Hej nye spillere!\nVelkommen til yatzee!\n\n";
-                string standardRegler = @"REGLER:
+            public static string standardRegler = @"REGLER:
     1.En spiller slår med terningerne.
     2.Spilleren kan vælge at beholde et eller flere terninger og kaste de resterende igen.
     3.Spilleren har tre kast i alt til at opnå den ønskede kombination.
@@ -20,7 +14,15 @@
     6.Spillet fortsætter med, at spillerne skiftes til at kaste terningerne.
     Og der er bonus ved 63: 50p og 93: 100p" + "\n";
 
-                Console.WriteLine(velkomstBesked + standardRegler);
+            public static void Velkomst()
+            {
+
+                //Velkost og Regler
+
+                string velkomstBesked = "Hej nye spillere!\nVelkommen til yatzee!\n\n";
+                
+
+                Console.WriteLine(velkomstBesked + Program.StartNewGame.standardRegler);
             }
 
         }
@@ -101,11 +103,17 @@
 
             // initialiserer scoreboard til test
             string[,] scoreBoard = ScoreBoard.createScoreBoard2();
-            scoreBoard[1, 1] = "5";
+            scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5
 
             //det bliver første spillers tur
-            Play.Turn(scoreBoard, 1);
-            Program.ScoreBoard.PrintScoreBoard(scoreBoard);
+            //Play.Turn(scoreBoard, 1);
+            //Program.ScoreBoard.PrintScoreBoard(scoreBoard);
+
+            int[] possibleAnswers = { 1,2,3 };
+
+            int a = Input.IntQuestion("Du skal vælge et tal mellem 1-3: ", possibleAnswers, "Tal mellem 1-3!!");
+
+            Console.WriteLine(a);
 
             Console.ReadKey();
 
