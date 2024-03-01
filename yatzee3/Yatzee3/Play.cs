@@ -66,8 +66,8 @@ namespace Yatzee3
 
             }
             dices_[0].diceNumber = 1;
-            dices_[1].diceNumber = 1;
-            dices_[2].diceNumber = 1;
+            dices_[1].diceNumber = 2;
+            dices_[2].diceNumber = 2;
             dices_[3].diceNumber = 1;
             dices_[4].diceNumber = 1;
 
@@ -226,7 +226,7 @@ namespace Yatzee3
                     return score;
                 }
 
-                int Pair(int[] dicesNumbers, int used = -2)
+                int Pair(int[] dicesNumbers, int usedPair = -1)
                 {
                     Array.Reverse(dicesNumbers);
                     int score = 0;
@@ -234,7 +234,7 @@ namespace Yatzee3
                     // find bedste mulige par
                     for (int i = 0; i < dicesNumbers.Length; i++)
                     {
-                        if (dicesNumbers[i] == used || dicesNumbers[i] == used + 1)
+                        if (dicesNumbers[i] == usedPair)
                             continue;
 
                         int posibleScore = 0;
@@ -262,22 +262,23 @@ namespace Yatzee3
 
                     int score = 0;
 
+                    // se om der er fire ens, hvilket er to par
+                    int samePair = FindxSame(dicesNumbers, 4);
+                    if (samePair != 0)
+                        return samePair;
+
+                    // hvis der ikke er fire ens
                     int par1Score = Pair(dicesNumbers);
 
                     // remove used numbers
-                    int used = -2;
-                    for (int i = 0; i < dices.Length; i++)
-                    {
-                        if (dicesNumbers[i] == par1Score / 2)
-                        {
-                            used = i;
-                            break;
-                        }
-                    }
-
-                    int par2Score = Pair(dicesNumbers, used);
-
-                    return par1Score + par2Score;
+                    int usedPair = par1Score / 2;
+                    int par2Score = Pair(dicesNumbers, usedPair);
+                    
+                    //hvis der ikke er et andet par retuneres 0
+                    if (par2Score == 0)
+                        return 0;
+                    else
+                        return par1Score + par2Score;
                 }
 
                 int FindxSame(int[] dicesNumbers, int x)
