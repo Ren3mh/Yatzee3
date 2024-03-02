@@ -14,6 +14,26 @@ namespace Yatzee3
             public int diceNumber = 1;
             public bool keepDice = false;
 
+            //Array til at gemme terningmønstre
+            private string[] dicePatterns =
+            {
+
+                    "+-------+\n|       |\n|   *   |\n|       |\n+-------+", // 1
+
+                    "+-------+\n| *     |\n|       |\n|     * |\n+-------+", // 2
+            
+                    "+-------+\n| *     |\n|   *   |\n|     * |\n+-------+", // 3
+                
+                    "+-------+\n| *   * |\n|       |\n| *   * |\n+-------+", // 4
+            
+                    "+-------+\n| *   * |\n|   *   |\n| *   * |\n+-------+", // 5
+            
+                    "+-------+\n| *   * |\n| *   * |\n| *   * |\n+-------+"  // 6
+
+
+            };
+
+
             // methods
             public int RollDice()
             {
@@ -21,6 +41,11 @@ namespace Yatzee3
                 return diceNumber;
             }
 
+            //Metode til at få det visuelle terningmønster
+            //public string[] getdicepattern()
+            //{
+            //    return dicepatterns[dicenumber - 1];// -1, fordi array indekser starter fra 0
+            //}
         }
 
         public static void Turn(string[,] scoreBoard, int player, int turns = 3)
