@@ -15,26 +15,6 @@ namespace Yatzee3
             public int diceNumber = 1;
             public bool keepDice = false;
 
-            //Array til at gemme terningmønstre
-            private string[] dicePatterns =
-            {
-
-                    "+-------+\n|       |\n|   *   |\n|       |\n+-------+", // 1
-
-                    "+-------+\n| *     |\n|       |\n|     * |\n+-------+", // 2
-            
-                    "+-------+\n| *     |\n|   *   |\n|     * |\n+-------+", // 3
-                
-                    "+-------+\n| *   * |\n|       |\n| *   * |\n+-------+", // 4
-            
-                    "+-------+\n| *   * |\n|   *   |\n| *   * |\n+-------+", // 5
-            
-                    "+-------+\n| *   * |\n| *   * |\n| *   * |\n+-------+"  // 6
-
-
-            };
-
-
             // methods
             public int RollDice()
             {
@@ -43,21 +23,98 @@ namespace Yatzee3
             }
 
             //Metode til at få det visuelle terningmønster
-            //public string[] getdicepattern()
-            //{
-            //    return dicepatterns[dicenumber - 1];// -1, fordi array indekser starter fra 0
-            //}
+            public static void PrintDices(Dice[] dices)
+            {
+                // dicepatterns
+                string topNBottom = "+-------+\t";
+                string empty = "|       |\t";
+                string middleStar = "|   *   |\t";
+                string rightStar = "|     * |\t";
+                string leftStar = "| *     |\t";
+                string doubbleStar = "| *   * |\t";
+
+                string StringXTimes(string s, int times)
+                {
+                    string newString = "";
+                    for (int i = 0; i < times; i++)
+                        newString += s;
+                    return newString;
+                }
+
+                /*
+                "+-------+\n|       |\n|   *   |\n|       |\n+-------+", // 1
+
+                "+-------+\n| *     |\n|       |\n|     * |\n+-------+", // 2
+
+                "+-------+\n| *     |\n|   *   |\n|     * |\n+-------+", // 3
+
+                "+-------+\n| *   * |\n|       |\n| *   * |\n+-------+", // 4
+
+                "+-------+\n| *   * |\n|   *   |\n| *   * |\n+-------+", // 5
+
+                "+-------+\n| *   * |\n| *   * |\n| *   * |\n+-------+"  // 6
+                */
+
+                string firstLine = "\n\nTerning 1\tTerning 2\tTerning 3\tTerning 4\tTerning 5\t";
+                string secondNLastLine = StringXTimes(topNBottom, 5);
+                string thirdLine = "";
+                string fourthLine = "";
+                string fifthLine = "";
+
+                foreach (Dice dice in dices)
+                {
+                    int num = dice.diceNumber;
+                    switch (num)
+                    {
+                        case 1:
+                            thirdLine += empty;
+                            fourthLine += middleStar;
+                            fifthLine += empty;
+                            break;
+                        case 2:
+                            thirdLine += leftStar;
+                            fourthLine += empty;
+                            fifthLine += rightStar;
+                            break;
+                        case 3:
+                            thirdLine += leftStar;
+                            fourthLine += middleStar;
+                            fifthLine += rightStar;
+                            break;
+                        case 4:
+                            thirdLine += doubbleStar;
+                            fourthLine += empty;
+                            fifthLine += doubbleStar;
+                            break;
+                        case 5:
+                            thirdLine += doubbleStar;
+                            fourthLine += middleStar;
+                            fifthLine += doubbleStar;
+                            break;
+                        case 6:
+                            thirdLine += doubbleStar;
+                            fourthLine += doubbleStar;
+                            fifthLine += doubbleStar;
+                            break;
+                    }
+                }
+
+                Console.WriteLine(firstLine);
+                Console.WriteLine(secondNLastLine);
+                Console.WriteLine(thirdLine);
+                Console.WriteLine(fourthLine);
+                Console.WriteLine(fifthLine);
+                Console.WriteLine(secondNLastLine);
+            }
         }
 
         public static void Throw(string[,] scoreBoard, int player, int turn, int throws = 3)
         {
-            int score = 0;
-
+           
             // array med terninger og initialiseres
             Dice[] dices = CreateDices();
 
             // kastene starter
-            
             for (int i = 0; i < throws; i++)
             {
                 if (i == throws-1)
@@ -85,9 +142,9 @@ namespace Yatzee3
                     DicesToKeep(dices);
                 }
             }
-            
-                        //test
+
             // dices instantiates til test
+            /*
             Play.Dice[] dices_ = new Play.Dice[5];
             for (int i = 0; i < 5; i++)
             {
@@ -99,6 +156,7 @@ namespace Yatzee3
             dices_[2].diceNumber = 2;
             dices_[3].diceNumber = 1;
             dices_[4].diceNumber = 1;
+            */
 
             int[] choosenScore = Score.ChooseScore(dices, scoreBoard, player);
 
@@ -116,8 +174,8 @@ namespace Yatzee3
             {
                 if (dices[i].keepDice == false)
                     dices[i].RollDice();
-                Console.WriteLine("Terning: {0} = {1}", i + 1, dices[i].diceNumber);
             }
+            Dice.PrintDices(dices);
         }
 
         static void DicesToKeep(Dice[] dices)
@@ -388,21 +446,57 @@ namespace Yatzee3
             Kombinationer kombi = new Kombinationer(dices);
             int[] choosenScore = new int[2];
 
-            Console.WriteLine("\nDine mulige Scores:");
-            for (int i = 1; i < 15; i++)
-            {
-                if (scoreBoard[i,player] != "")
-                    continue;
-                Console.WriteLine($"\tTast {i} for:\t{kombi.ScoreNames[i-1]}: {kombi.Scores[i-1]} point");
-            }
+            PrintPossibleScores();
 
-            Console.Write("Hvad vælger du? ");
-            int input = int.Parse(Console.ReadLine());
+            int score;
+            int input;
+
+            do
+            {
+                bool out_ = false;
+
+                Console.Write("Hvad vælger du? ");
+
+                try
+                {
+                    input = int.Parse(Console.ReadLine());
+
+                    // ser om scoren er tom
+                    if (scoreBoard[input, player] != "")
+                    {
+                        Console.WriteLine("\nDu kan kun vælge scores der ikke i forvejen er udfyldt.\n");
+                        PrintPossibleScores();
+                        continue;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("\nDu kan kun skrive tal 1-14.\n");
+                    continue;
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("\nDu kan kun skrive tal 1-14.\n");
+                    continue;
+                }
+                break;
+            } while (true);
 
             choosenScore[0] = input;
             choosenScore[1] = kombi.Scores[input - 1];
 
             return choosenScore;
+
+            void PrintPossibleScores()
+            {
+                Console.WriteLine("\nDine mulige Scores:");
+                for (int i = 1; i < 15; i++)
+                {
+                    if (scoreBoard[i, player] != "")
+                        continue;
+                    Console.WriteLine($"\tTast {i} for:\t{kombi.ScoreNames[i - 1]}: {kombi.Scores[i - 1]} point");
+                }
+            }
         }
                
     }
