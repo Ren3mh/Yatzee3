@@ -25,6 +25,56 @@
                 Console.WriteLine(velkomstBesked + Program.StartNewGame.standardRegler);
             }
 
+            public static int ChoosePlayers()
+            {
+                                //Spiller antal valg med do-while og switch til at vælge 2 eller 3 spillere (burde måske laves med try/catch/exception)
+                string question = "\nHvor mange spillere er I? Skriv 2 eller 3 og tryk enter: ";
+                int[] answers = { 2, 3 };
+
+                int chooseAgain = 1;
+                int playerCount;
+                do
+                {
+                    playerCount = Input.IntQuestion(question, answers, "Du skal svare med 2 eller 3");
+                    switch (playerCount)
+                    {
+                        case 2:
+                            Console.WriteLine("Du har valgt 2 spillere, tryk enter for at begynde...");
+                            chooseAgain = 1;
+                            break;
+                        case 3:
+                            Console.WriteLine("Du har valgt 3 spillere, tryk enter for at begynde...");
+                            chooseAgain = 1;
+                            break;
+                        default:
+                            Console.WriteLine("Du skal skrive 2 eller 3 og derefter enter");
+                            chooseAgain = 0;
+                            break;
+
+                    }
+                } while (chooseAgain == 0);
+
+                return playerCount;
+
+                /*
+                //enter eller whatever for continue
+                Console.ReadLine();
+                Console.Clear();
+
+                if (playerCount == 2)
+                { Scoreboard.createScoreBoard2(); }
+                else
+                { Scoreboard.createScoreBoard3(); }
+
+                Console.WriteLine("\n\nSpiller1 din terning... Din terning blev... Hvor vil du gemme? Tryk enter");
+                Console.ReadLine();
+
+
+                Scoreboard.permScore();
+                Console.WriteLine("\n\nSpiller2 din terning... Din terning blev... Hvor vil du gemme? Tryk enter");
+                */
+            }
+
         }
 
         public class ScoreBoard
@@ -43,6 +93,7 @@
                     }
                     System.Console.WriteLine();
                 }
+                Console.WriteLine();
             }
 
             //Laver scoreboard med 3*17 til 2 spillere med score kategorier og spiller1 og spiller2, printer derefter til consol
@@ -52,7 +103,7 @@
                     { "4'ere", "", "" }, { "5'ere", "", "" }, { "6'ere", "", "" }, { "1 Par", "", "" }, { "2 Par", "", "" }, { "3 ens", "", "" }, 
                     { "4 ens", "", "" }, { "Li straigth", "", "" }, { "St straight", "", "" }, { "Chancen", "", "" }, { "Yatzee", "", "" }, { "Bonus63", "", "" }, { "Bonus93", "", "" }, };
 
-                //PrintScoreBoard(scoreBoardArr);
+                PrintScoreBoard(scoreBoardArr);
 
                 return scoreBoardArr;
 
@@ -101,76 +152,40 @@
             // spillet starter
             StartNewGame.Velkomst();
 
-            // initialiserer scoreboard 
-            string[,] scoreBoard = ScoreBoard.createScoreBoard2();
-            scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
+            // vælg antal spillere
+            int players = 2; //StartNewGame.ChoosePlayers(); // 2 til test
+
+            // initialiserer scoreboard
+            string[,] scoreBoard;
+
+            if (players == 2)
+                scoreBoard = ScoreBoard.createScoreBoard2();
+            else
+                scoreBoard = ScoreBoard.createScoreBoard3();
+
+            //scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
 
             // turene kører
-            int turns = 4;
-            for (int i = 0; i < turns; i++)
+            int turns = 4; //scoreBoard.GetLength(0); // 4 ture til test
+
+            for (int t = 0; t < turns; t++)
             {
                 //det bliver første spillers tur
-                int player = 1;
-                Play.Turn(scoreBoard, player);
-                Program.ScoreBoard.PrintScoreBoard(scoreBoard);
+                for (int p = 1; p <= players; t++)
+                {
+                    Console.WriteLine($"Det er {scoreBoard[0, p]}; {t}. tur.");
+                    Play.Turn(scoreBoard, p);
+                    Program.ScoreBoard.PrintScoreBoard(scoreBoard);
 
-                Console.Write("\nTryk inter for at fortsætte spillet.");
-                Console.ReadKey();
+                    Console.Write("\nTryk inter for at fortsætte spillet.");
+                    Console.ReadKey();
 
-                Console.Clear();
+                    Console.Clear();
+                }
             }
 
             Console.ReadKey();
 
-            //Scoreboard.Velkomst();
-
-            ////Spiller antal valg med do-while og switch til at vælge 2 eller 3 spillere (burde måske laves med try/catch/exception)
-            //Console.WriteLine("\n Hvor mange spillere er I?\n" +
-            //    "skriv 2 eller 3 og tryk enter");
-
-            //int chooseAgain = 1;
-            //int playerCount;
-            //do
-            //{
-            //    playerCount = int.Parse(Console.ReadLine());
-            //    switch (playerCount)
-            //    {
-            //        case 2:
-            //            Console.WriteLine("Du har valgt 2 spillere, tryk enter for at begynde...");
-            //            chooseAgain = 1;
-            //            break;
-            //        case 3:
-            //            Console.WriteLine("Du har valgt 3 spillere, tryk enter for at begynde...");
-            //            chooseAgain = 1;
-            //            break;
-            //        default:
-            //            Console.WriteLine("Du skal skrive 2 eller 3 og derefter enter");
-            //            chooseAgain = 0;
-            //            break;
-
-            //    }
-            //} while (chooseAgain == 0);
-
-            
-            ////enter eller whatever for continue
-            //Console.ReadLine();
-            //Console.Clear() ;
-
-            //if (playerCount == 2)
-            //    { Scoreboard.createScoreBoard2(); }
-            //else
-            //{ Scoreboard.createScoreBoard3(); }
-
-            //Console.WriteLine("\n\nSpiller1 din terning... Din terning blev... Hvor vil du gemme? Tryk enter");
-            //Console.ReadLine() ;
-
-
-            //Scoreboard.permScore();
-            //Console.WriteLine("\n\nSpiller2 din terning... Din terning blev... Hvor vil du gemme? Tryk enter");
-
-            //Console.ReadLine();
-
-            
         }
     }
 }

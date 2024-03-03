@@ -61,7 +61,7 @@ namespace Yatzee3
             {
                 if (i == turns - 1)
                 {
-                    Console.WriteLine("Det er din {0}. og sidste tur!", i + 1);
+                    Console.WriteLine("Det er dit {0}. og sidste kast!", i + 1);
 
                     // terningerne kastes en sidste gang
                     RollDices(dices);
@@ -70,7 +70,7 @@ namespace Yatzee3
 
                 else
                 {
-                    Console.WriteLine("Din {0}. tur.", i + 1);
+                    Console.WriteLine("Dit {0}. kast.", i + 1);
 
                     // terningerne kastes
                     RollDices(dices);
@@ -357,7 +357,7 @@ namespace Yatzee3
             {
                 if (scoreBoard[i,player] != "")
                     continue;
-                Console.WriteLine($"\tTast {i} for:\t{kombi.ScoreNames[i-1]}: {kombi.Scores[i-1]}");
+                Console.WriteLine($"\tTast {i} for:\t{kombi.ScoreNames[i-1]}: {kombi.Scores[i-1]} point");
             }
 
             Console.Write("Hvad vælger du? ");
