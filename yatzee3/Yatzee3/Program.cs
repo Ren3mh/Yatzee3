@@ -1,4 +1,6 @@
-﻿    namespace Yatzee3
+﻿using System.Runtime.Serialization.Formatters;
+
+namespace Yatzee3
 {
     internal class Program
     {
@@ -191,15 +193,33 @@
             else
                 scoreBoard = Scoreboard.createScoreBoard3();
 
-            //scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
+            // test scoreboard
+            /* 
+            scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
+
+            for (int i = 1; i < scoreBoard.GetLength(0); i++)
+            {
+                if (i > 13)
+                    continue;
+
+                for (int j = 0; j < scoreBoard.GetLength(1); j++)
+                {
+                    if (j == 0)
+                        continue;
+                    scoreBoard[i, j] = "5";
+                }
+            }
+            */
+
+
 
             //start spil
             Console.Write("Tryk enter for at komme i gang!");
-            Console.ReadKey();
+            //Console.ReadKey();
             Console.Clear();
 
             // turene kører
-            int turns = 4; //scoreBoard.GetLength(0); // 4 ture til test
+            int turns = 1; //scoreBoard.GetLength(0); // 4 ture til test
 
             for (int t = 1; t <= turns; t++)
             {
@@ -221,7 +241,7 @@
                     Console.Clear();
                 }
             }
-
+            Console.WriteLine("Spillet er slut");
             Console.ReadKey();
 
         }
