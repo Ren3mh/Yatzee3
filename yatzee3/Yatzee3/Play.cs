@@ -51,13 +51,11 @@ namespace Yatzee3
 
         public static void Throw(string[,] scoreBoard, int player, int turn, int throws = 3)
         {
-            int score = 0;
-
+           
             // array med terninger og initialiseres
             Dice[] dices = CreateDices();
 
             // kastene starter
-            
             for (int i = 0; i < throws; i++)
             {
                 if (i == throws-1)
@@ -85,9 +83,9 @@ namespace Yatzee3
                     DicesToKeep(dices);
                 }
             }
-            
-                        //test
+
             // dices instantiates til test
+            /*
             Play.Dice[] dices_ = new Play.Dice[5];
             for (int i = 0; i < 5; i++)
             {
@@ -99,6 +97,7 @@ namespace Yatzee3
             dices_[2].diceNumber = 2;
             dices_[3].diceNumber = 1;
             dices_[4].diceNumber = 1;
+            */
 
             int[] choosenScore = Score.ChooseScore(dices, scoreBoard, player);
 
@@ -388,21 +387,57 @@ namespace Yatzee3
             Kombinationer kombi = new Kombinationer(dices);
             int[] choosenScore = new int[2];
 
-            Console.WriteLine("\nDine mulige Scores:");
-            for (int i = 1; i < 15; i++)
-            {
-                if (scoreBoard[i,player] != "")
-                    continue;
-                Console.WriteLine($"\tTast {i} for:\t{kombi.ScoreNames[i-1]}: {kombi.Scores[i-1]} point");
-            }
+            PrintPossibleScores();
 
-            Console.Write("Hvad vælger du? ");
-            int input = int.Parse(Console.ReadLine());
+            int score;
+            int input;
+
+            do
+            {
+                bool out_ = false;
+
+                Console.Write("Hvad vælger du? ");
+
+                try
+                {
+                    input = int.Parse(Console.ReadLine());
+
+                    // ser om scoren er tom
+                    if (scoreBoard[input, player] != "")
+                    {
+                        Console.WriteLine("\nDu kan kun vælge scores der ikke i forvejen er udfyldt.\n");
+                        PrintPossibleScores();
+                        continue;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("\nDu kan kun skrive tal 1-14.\n");
+                    continue;
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("\nDu kan kun skrive tal 1-14.\n");
+                    continue;
+                }
+                break;
+            } while (true);
 
             choosenScore[0] = input;
             choosenScore[1] = kombi.Scores[input - 1];
 
             return choosenScore;
+
+            void PrintPossibleScores()
+            {
+                Console.WriteLine("\nDine mulige Scores:");
+                for (int i = 1; i < 15; i++)
+                {
+                    if (scoreBoard[i, player] != "")
+                        continue;
+                    Console.WriteLine($"\tTast {i} for:\t{kombi.ScoreNames[i - 1]}: {kombi.Scores[i - 1]} point");
+                }
+            }
         }
                
     }

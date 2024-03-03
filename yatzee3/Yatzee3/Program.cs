@@ -1,4 +1,6 @@
-﻿    namespace Yatzee3
+﻿using System.Runtime.Serialization.Formatters;
+
+namespace Yatzee3
 {
     internal class Program
     {
@@ -81,7 +83,6 @@
                 // gennemgår scorene i 1-6
                 for (int s = 1; s <= 6; s++)
                 {
-                    string x = scoreboard[s, player];
                     try
                     {                        
                         score += int.Parse(scoreboard[s, player]);
@@ -100,6 +101,24 @@
                     scoreboard[15, player] = "50"; // indsæt på bonus 63
                 }
 
+            }
+
+            public static int CombinedScore(string[,] scoreboard, int player)
+            {
+                int score = 0;
+
+                // gennemgår scorene i 1-6
+                for (int s = 1; s < 17; s++)
+                {
+                    try
+                    {
+                        score += int.Parse(scoreboard[s, player]);
+                    }
+                    catch (System.FormatException)
+                    { score += 0; }
+                }
+
+                return score;
             }
 
             public static void PrintScoreboard(string[,] scoreBoardArr)
@@ -176,7 +195,7 @@
             StartNewGame.Velkomst();
 
             // vælg antal spillere
-            int players = 2; //StartNewGame.ChoosePlayers(); // 2 til test
+            int players = StartNewGame.ChoosePlayers(); // 2 til test
 
             // initialiserer scoreboard
             string[,] scoreBoard;
@@ -186,7 +205,24 @@
             else
                 scoreBoard = Scoreboard.createScoreBoard3();
 
-            //scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
+            // test scoreboard
+
+            /*
+            scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
+
+            for (int i = 1; i < scoreBoard.GetLength(0); i++)
+            {
+                if (i > 13)
+                    continue;
+
+                for (int j = 0; j < scoreBoard.GetLength(1); j++)
+                {
+                    if (j == 0)
+                        continue;
+                    scoreBoard[i, j] = "5";
+                }
+            }
+            */
 
             //start spil
             Console.Write("Tryk enter for at komme i gang!");
@@ -194,7 +230,7 @@
             Console.Clear();
 
             // turene kører
-            int turns = 4; //scoreBoard.GetLength(0); // 4 ture til test
+            int turns = scoreBoard.GetLength(0); // 4 ture til test
 
             for (int t = 1; t <= turns; t++)
             {
@@ -205,10 +241,10 @@
                     Console.WriteLine($"Det er {scoreBoard[0, p]}; {t}. tur.\n");
 
                     Play.Throw(scoreBoard, p, t);
-                    
+
 
                     Console.Clear();
-                    Program.Scoreboard.PrintScoreboard(scoreBoard);
+                    Scoreboard.PrintScoreboard(scoreBoard);
 
                     Console.Write("\nTryk inter for at fortsætte spillet.");
                     Console.ReadKey();
@@ -217,6 +253,45 @@
                 }
             }
 
+
+
+            Console.WriteLine("Spillet er slut\n");
+
+            int[] finalScores = new int[players];
+
+            for (int p = 1; p <= players; p++)
+            {
+                int finalScore = Scoreboard.CombinedScore(scoreBoard, p);
+                finalScores[p-1] = finalScore;
+                Console.WriteLine($"{scoreBoard[0,p]} fik {finalScore} point");
+            }
+
+            FindWinner();
+
+            void FindWinner()
+            {
+                int winnerScore = 0;
+                bool[] winners = new bool[players];
+                for (int i = 0; i < players; i++) { winners[i] = false; } // sætter alle players til win = false
+
+                for (int i = 0; i < finalScores.Length; i++)
+                {
+                    if (finalScores[i] >= winnerScore)
+                    {
+                        winnerScore = finalScores[i];
+                        winners[i] = true;
+                    }
+                }
+
+                Console.WriteLine("\n\t\tVinder(ne)!!");
+                for (int i = 0; i < players; i++)
+                {
+                    if (winners[i])
+                        Console.WriteLine($"{scoreBoard[0, i+1]}, med  en score på hele: {winnerScore}!");
+                }
+            }
+
+            Console.WriteLine("\nTak for spillet. Tast enter for at afslutte.");
             Console.ReadKey();
 
         }
