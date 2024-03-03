@@ -138,12 +138,15 @@ namespace Yatzee3
                 Console.WriteLine();
             }
 
+            //Scoreboardet ser mækeligt ud når scorenavn er over 6 karakterer. Tab flytter scoren for langt til højre så den ikke passer med player.
+            //Derfor kan man give jeg alle scoreNavne under 8 chars et \t (tab er 8chars langt), og rette Player1 til P1 + Player2 til P2
+
             //Laver scoreboard med 3*17 til 2 spillere med score kategorier og spiller1 og spiller2, printer derefter til consol
             public static string[,] createScoreBoard2()
             {
-                string[,] scoreBoardArr = new string[,]  { { "Score", "Player1", "Player2" }, { "1'ere", "", "" }, { "2'ere", "", "" }, { "3'ere", "", "" },
-                    { "4'ere", "", "" }, { "5'ere", "", "" }, { "6'ere", "", "" }, { "1 Par", "", "" }, { "2 Par", "", "" }, { "3 ens", "", "" }, 
-                    { "4 ens", "", "" }, { "Li straigth", "", "" }, { "St straight", "", "" }, { "Chancen", "", "" }, { "Yatzee", "", "" }, { "Bonus63", "", "" }, { "Bonus93", "", "" }, };
+                string[,] scoreBoardArr = new string[,]  { { "Score\t", "P1", "P2" }, { "1'ere\t", "", "" }, { "2'ere\t", "", "" }, { "3'ere\t", "", "" },
+                    { "4'ere\t", "", "" }, { "5'ere\t", "", "" }, { "6'ere\t", "", "" }, { "1 Par\t", "", "" }, { "2 Par\t", "", "" }, { "3 ens\t", "", "" }, 
+                    { "4 ens\t", "", "" }, { "Li Straight", "", "" }, { "St Straight", "", "" }, { "Chancen\t", "", "" }, { "Yatzee\t", "", "" }, { "Bonus63", "", "" }, { "Bonus93", "", "" }, };
 
                 PrintScoreboard(scoreBoardArr);
 
@@ -154,9 +157,9 @@ namespace Yatzee3
             //Laver scoreboard med 4*17 til 3 spillere med score kategorier og spiller1, spiller2 og spiller3 printer derefter til consol
             public static string[,] createScoreBoard3()
             {
-                string[,] scoreBoardArr = new string[,]  { { "Score", "Player1", "Player2", "Player3" }, { "1'ere", "", "", "" }, { "2'ere", "", "", "" }, { "3'ere", "", "", "" },
-                    { "4'ere", "", "", "" }, { "5'ere", "", "", "" }, { "6'ere", "", "", "" }, { "1 Par", "", "", "" }, { "2 Par", "", "", "" }, { "3 ens", "", "", "" },
-                    { "4 ens", "", "", "" }, { "Li straigth", "", "", "" }, { "St straight", "", "", "" }, { "Chancen", "", "", "" }, { "Yatzee", "", "", "" }, { "Bonus63", "", "", "" }, { "Bonus93", "", "", "" }, };
+                string[,] scoreBoardArr = new string[,]  { { "Score\t", "P1", "P2", "P3 " }, { "1'ere\t", "", "", "" }, { "2'ere\t", "", "", "" }, { "3'ere\t", "", "", "" },
+                    { "4'ere\t", "", "", "" }, { "5'ere\t", "", "", "" }, { "6'ere\t", "", "", "" }, { "1 Par\t", "", "", "" }, { "2 Par\t", "", "", "" }, { "3 ens\t", "", "", "" },
+                    { "4 ens\t", "", "", "" }, { "Li Straight", "", "", "" }, { "St Straight", "", "", "" }, { "Chancen\t", "", "", "" }, { "Yatzee\t", "", "", "" }, { "Bonus63", "", "", "" }, { "Bonus93", "", "", "" }, };
 
                 PrintScoreboard(scoreBoardArr);
 
