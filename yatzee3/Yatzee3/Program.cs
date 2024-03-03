@@ -82,6 +82,7 @@
 
             public static void PrintScoreBoard(string[,] scoreBoardArr)
             {
+                Console.WriteLine("\t\tSCOREBOARD");
                 for (int i = 0; i < scoreBoardArr.GetLength(0); i++)
                 {
                     for (int j = 0; j < scoreBoardArr.GetLength(1); j++)
@@ -165,16 +166,25 @@
 
             //scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
 
+            //start spil
+            Console.Write("Tryk enter for at komme i gang!");
+            Console.ReadKey();
+            Console.Clear();
+
             // turene kører
             int turns = 4; //scoreBoard.GetLength(0); // 4 ture til test
 
-            for (int t = 0; t < turns; t++)
+            for (int t = 1; t <= turns; t++)
             {
                 //det bliver første spillers tur
-                for (int p = 1; p <= players; t++)
+                for (int p = 1; p <= players; p++)
                 {
-                    Console.WriteLine($"Det er {scoreBoard[0, p]}; {t}. tur.");
-                    Play.Turn(scoreBoard, p);
+                    Console.Clear();
+                    Console.WriteLine($"Det er {scoreBoard[0, p]}; {t}. tur.\n");
+
+                    Play.Throw(scoreBoard, p, t);
+
+                    Console.Clear();
                     Program.ScoreBoard.PrintScoreBoard(scoreBoard);
 
                     Console.Write("\nTryk inter for at fortsætte spillet.");

@@ -48,18 +48,18 @@ namespace Yatzee3
             //}
         }
 
-        public static void Turn(string[,] scoreBoard, int player, int turns = 3)
+        public static void Throw(string[,] scoreBoard, int player, int turn, int throws = 3)
         {
             int score = 0;
 
             // array med terninger og initialiseres
             Dice[] dices = CreateDices();
 
-            // turene starter
+            // kastene starter
             
-            for (int i = 0; i < turns; i++)
+            for (int i = 0; i < throws; i++)
             {
-                if (i == turns - 1)
+                if (i == throws-1)
                 {
                     Console.WriteLine("Det er dit {0}. og sidste kast!", i + 1);
 
@@ -70,6 +70,7 @@ namespace Yatzee3
 
                 else
                 {
+                    
                     Console.WriteLine("Dit {0}. kast.", i + 1);
 
                     // terningerne kastes
@@ -80,8 +81,6 @@ namespace Yatzee3
                 }
             }
             
-
-
                         //test
             // dices instantiates til test
             Play.Dice[] dices_ = new Play.Dice[5];
@@ -96,9 +95,9 @@ namespace Yatzee3
             dices_[3].diceNumber = 1;
             dices_[4].diceNumber = 1;
 
-            int[] choosenScore = Score.ChooseScore(dices_, scoreBoard, player);
+            int[] choosenScore = Score.ChooseScore(dices, scoreBoard, player);
 
-            scoreBoard[player, choosenScore[0]+1] = Convert.ToString(choosenScore[1]);
+            scoreBoard[choosenScore[0], player] = Convert.ToString(choosenScore[1]);
         }
 
         static void RollDices(Dice[] dices)
@@ -127,15 +126,18 @@ namespace Yatzee3
                     int[] input = Input.ArrInteger("Vælg terninger der skal gemmes: ", maxNumbers: 6);
 
                     foreach (int i in input)
-                        dices[i].keepDice = true;
+                        dices[i-1].keepDice = true;
                 }
                 catch (IndexOutOfRangeException)
-                { Console.WriteLine("Du kan kun indtaste tal mellem 1-6.\nØnsker du ikke at gemme nogle tryk enter."); }
+                { 
+                    Console.WriteLine("Du kan kun indtaste tal mellem 1-6.\nØnsker du ikke at gemme nogle tryk enter.");
+                }
 
                 break;
 
             } while (true);
 
+            Console.Clear();
             PrintDices(dices);
         }
 
@@ -352,8 +354,8 @@ namespace Yatzee3
             Kombinationer kombi = new Kombinationer(dices);
             int[] choosenScore = new int[2];
 
-            Console.WriteLine("Dine mulige Scores:");
-            for (int i = 1; i < 14; i++)
+            Console.WriteLine("\nDine mulige Scores:");
+            for (int i = 1; i < 15; i++)
             {
                 if (scoreBoard[i,player] != "")
                     continue;
