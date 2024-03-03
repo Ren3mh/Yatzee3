@@ -59,7 +59,7 @@ namespace Yatzee3
                 return playerCount;
 
                 /*
-                //enter eller whatever for continue
+                //enter eller whatever for continue. Clearer consol og viser scoreboard for 2 eller 3 personer
                 Console.ReadLine();
                 Console.Clear();
 
@@ -68,12 +68,7 @@ namespace Yatzee3
                 else
                 { Scoreboard.createScoreBoard3(); }
 
-                Console.WriteLine("\n\nSpiller1 din terning... Din terning blev... Hvor vil du gemme? Tryk enter");
-                Console.ReadLine();
-
-
-                Scoreboard.permScore();
-                Console.WriteLine("\n\nSpiller2 din terning... Din terning blev... Hvor vil du gemme? Tryk enter");
+               
                 */
             }
 
