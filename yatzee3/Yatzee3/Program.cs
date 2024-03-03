@@ -231,11 +231,11 @@ namespace Yatzee3
 
             //start spil
             Console.Write("Tryk enter for at komme i gang!");
-            //Console.ReadKey();
+            Console.ReadKey();
             Console.Clear();
 
             // turene kører
-            int turns = 1; //scoreBoard.GetLength(0); // 4 ture til test
+            int turns = scoreBoard.GetLength(0); // 4 ture til test
 
             for (int t = 1; t <= turns; t++)
             {

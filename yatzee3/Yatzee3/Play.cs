@@ -56,7 +56,6 @@ namespace Yatzee3
             Dice[] dices = CreateDices();
 
             // kastene starter
-            /*
             for (int i = 0; i < throws; i++)
             {
                 if (i == throws-1)
@@ -80,9 +79,9 @@ namespace Yatzee3
                     DicesToKeep(dices);
                 }
             }
-            */
-                        //test
+
             // dices instantiates til test
+            /*
             Play.Dice[] dices_ = new Play.Dice[5];
             for (int i = 0; i < 5; i++)
             {
@@ -94,8 +93,9 @@ namespace Yatzee3
             dices_[2].diceNumber = 2;
             dices_[3].diceNumber = 1;
             dices_[4].diceNumber = 1;
+            */
 
-            int[] choosenScore = Score.ChooseScore(dices_, scoreBoard, player);
+            int[] choosenScore = Score.ChooseScore(dices, scoreBoard, player);
 
             scoreBoard[choosenScore[0], player] = Convert.ToString(choosenScore[1]);
 
