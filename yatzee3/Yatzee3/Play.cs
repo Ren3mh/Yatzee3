@@ -3,10 +3,8 @@ using static Yatzee3.Program;
 
 namespace Yatzee3
 {
-    // der skal laves exception handling ift. valg af terninger i "input", i Play.DicesToKeep
     // der skal laves exception handling ift. valg af score i "input", i Score.ChooseScore
     // sørger for der ikke kan ændres på scores
-    // udregn bonusser
     internal class Play
     {
         public class Dice
@@ -121,25 +119,51 @@ namespace Yatzee3
         static void DicesToKeep(Dice[] dices)
         {
            
-            //sætter keepDice til false
-            foreach (Dice dice in dices)
-                dice.keepDice = false;
+            
 
             do
             {
-                try
+                //sætter keepDice til false
+                foreach (Dice dice in dices)
+                    dice.keepDice = false;
+
+                bool out_ = false; // bryd ud af loop
+
+                Console.Write("\nVælg terninger der skal gemmes: ");
+                string input = Console.ReadLine();
+
+                // hvis ingen tal gives
+                if (input == "")
+                    break;
+
+                // gennemgår hvert tal i inputet
+                foreach (char c in input)
                 {
-                    int[] input = Input.ArrInteger("Vælg terninger der skal gemmes: ", maxNumbers: 6);
+                    int num = -1;
+                    out_ = false;
 
-                    foreach (int i in input)
-                        dices[i-1].keepDice = true;
-                }
-                catch (IndexOutOfRangeException)
-                { 
-                    Console.WriteLine("Du kan kun indtaste tal mellem 1-6.\nØnsker du ikke at gemme nogle tryk enter.");
-                }
+                    try //hvis andet end tal er givet
+                    {
+                        num = Convert.ToInt32(c.ToString());
+                        dices[num - 1].keepDice = true;
+                        out_ = true;
 
-                break;
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine("Du kan kun indtaste tal mellem 1-5.\nØnsker du ikke at gemme nogle tryk enter.");
+                        break;
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Du kan kun indtaste tal mellem 1-5.\nØnsker du ikke at gemme nogle tryk enter.");
+                        break;
+                    }
+                    
+                }
+                        
+                if (out_)
+                    break;
 
             } while (true);
 
