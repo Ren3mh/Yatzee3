@@ -66,7 +66,11 @@ namespace Yatzee3
 
                     // terningerne kastes en sidste gang
                     RollDices(dices);
-                    break;
+
+                    //(René)Skal der ikke kunne vælges efter sidste kast også?? Sådan her:
+                    //terningerne vælges/gemmes
+                    //DicesToKeep(dices);
+                    //break;
                 }
 
                 else
