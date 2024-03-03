@@ -77,10 +77,37 @@
 
         }
 
-        public class ScoreBoard
+        public class Scoreboard
         {
+            public static void CheckForBonus(string[,] scoreboard, int player)
+            {
+                int score = 0;
 
-            public static void PrintScoreBoard(string[,] scoreBoardArr)
+                // gennemgår scorene i 1-6
+                for (int s = 1; s <= 6; s++)
+                {
+                    string x = scoreboard[s, player];
+                    try
+                    {                        
+                        score += int.Parse(scoreboard[s, player]);
+                    }
+                    catch (System.FormatException)
+                    { score += 0; }
+                }
+
+                if (score > 92)
+                {
+                    scoreboard[15, player] = "50"; // indsæt på bonus 63
+                    scoreboard[16, player] = "50"; // indsæt på bonus 93
+                }
+                else if (score > 62)
+                {
+                    scoreboard[15, player] = "50"; // indsæt på bonus 63
+                }
+
+            }
+
+            public static void PrintScoreboard(string[,] scoreBoardArr)
             {
                 Console.WriteLine("\t\tSCOREBOARD");
                 for (int i = 0; i < scoreBoardArr.GetLength(0); i++)
@@ -104,7 +131,7 @@
                     { "4'ere", "", "" }, { "5'ere", "", "" }, { "6'ere", "", "" }, { "1 Par", "", "" }, { "2 Par", "", "" }, { "3 ens", "", "" }, 
                     { "4 ens", "", "" }, { "Li straigth", "", "" }, { "St straight", "", "" }, { "Chancen", "", "" }, { "Yatzee", "", "" }, { "Bonus63", "", "" }, { "Bonus93", "", "" }, };
 
-                PrintScoreBoard(scoreBoardArr);
+                PrintScoreboard(scoreBoardArr);
 
                 return scoreBoardArr;
 
@@ -117,7 +144,7 @@
                     { "4'ere", "", "", "" }, { "5'ere", "", "", "" }, { "6'ere", "", "", "" }, { "1 Par", "", "", "" }, { "2 Par", "", "", "" }, { "3 ens", "", "", "" },
                     { "4 ens", "", "", "" }, { "Li straigth", "", "", "" }, { "St straight", "", "", "" }, { "Chancen", "", "", "" }, { "Yatzee", "", "", "" }, { "Bonus63", "", "", "" }, { "Bonus93", "", "", "" }, };
 
-                PrintScoreBoard(scoreBoardArr);
+                PrintScoreboard(scoreBoardArr);
 
                 return scoreBoardArr;
 
@@ -134,7 +161,7 @@
             public static void permScore()
             {
                 Console.Clear();
-                ScoreBoard.createScoreBoard2();
+                Scoreboard.createScoreBoard2();
                
             }
 
@@ -160,9 +187,9 @@
             string[,] scoreBoard;
 
             if (players == 2)
-                scoreBoard = ScoreBoard.createScoreBoard2();
+                scoreBoard = Scoreboard.createScoreBoard2();
             else
-                scoreBoard = ScoreBoard.createScoreBoard3();
+                scoreBoard = Scoreboard.createScoreBoard3();
 
             //scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
 
@@ -183,9 +210,10 @@
                     Console.WriteLine($"Det er {scoreBoard[0, p]}; {t}. tur.\n");
 
                     Play.Throw(scoreBoard, p, t);
+                    
 
                     Console.Clear();
-                    Program.ScoreBoard.PrintScoreBoard(scoreBoard);
+                    Program.Scoreboard.PrintScoreboard(scoreBoard);
 
                     Console.Write("\nTryk inter for at fortsætte spillet.");
                     Console.ReadKey();

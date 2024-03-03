@@ -1,9 +1,12 @@
 ﻿using static Yatzee3.Play;
+using static Yatzee3.Program;
 
 namespace Yatzee3
 {
     // der skal laves exception handling ift. valg af terninger i "input", i Play.DicesToKeep
     // der skal laves exception handling ift. valg af score i "input", i Score.ChooseScore
+    // sørger for der ikke kan ændres på scores
+    // udregn bonusser
     internal class Play
     {
         public class Dice
@@ -98,6 +101,9 @@ namespace Yatzee3
             int[] choosenScore = Score.ChooseScore(dices, scoreBoard, player);
 
             scoreBoard[choosenScore[0], player] = Convert.ToString(choosenScore[1]);
+
+            // se om der bonusser
+            Scoreboard.CheckForBonus(scoreBoard, player);
         }
 
         static void RollDices(Dice[] dices)
@@ -370,6 +376,7 @@ namespace Yatzee3
 
             return choosenScore;
         }
+               
     }
 
     internal class Input
