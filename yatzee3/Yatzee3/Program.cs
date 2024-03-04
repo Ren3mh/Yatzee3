@@ -146,7 +146,7 @@ namespace Yatzee3
             {
                 string[,] scoreBoardArr = new string[,]  { { "Score\t", "P1", "P2" }, { "1'ere\t", "", "" }, { "2'ere\t", "", "" }, { "3'ere\t", "", "" },
                     { "4'ere\t", "", "" }, { "5'ere\t", "", "" }, { "6'ere\t", "", "" }, { "1 Par\t", "", "" }, { "2 Par\t", "", "" }, { "3 ens\t", "", "" }, 
-                    { "4 ens\t", "", "" }, { "Li Straight", "", "" }, { "St Straight", "", "" }, { "Chancen\t", "", "" }, { "Yatzee\t", "", "" }, { "Bonus63", "", "" }, { "Bonus93", "", "" }, };
+                    { "4 ens\t", "", "" }, { "Li Straight", "", "" }, { "St Straight", "", "" }, { "Chancen\t", "", "" }, { "Yatzee\t", "", "" }, { "Bonus63\t", "", "" }, { "Bonus93\t", "", "" }, };
 
                 PrintScoreboard(scoreBoardArr);
 
@@ -159,7 +159,7 @@ namespace Yatzee3
             {
                 string[,] scoreBoardArr = new string[,]  { { "Score\t", "P1", "P2", "P3 " }, { "1'ere\t", "", "", "" }, { "2'ere\t", "", "", "" }, { "3'ere\t", "", "", "" },
                     { "4'ere\t", "", "", "" }, { "5'ere\t", "", "", "" }, { "6'ere\t", "", "", "" }, { "1 Par\t", "", "", "" }, { "2 Par\t", "", "", "" }, { "3 ens\t", "", "", "" },
-                    { "4 ens\t", "", "", "" }, { "Li Straight", "", "", "" }, { "St Straight", "", "", "" }, { "Chancen\t", "", "", "" }, { "Yatzee\t", "", "", "" }, { "Bonus63", "", "", "" }, { "Bonus93", "", "", "" }, };
+                    { "4 ens\t", "", "", "" }, { "Li Straight", "", "", "" }, { "St Straight", "", "", "" }, { "Chancen\t", "", "", "" }, { "Yatzee\t", "", "", "" }, { "Bonus63\t", "", "", "" }, { "Bonus93\t", "", "", "" }, };
 
                 PrintScoreboard(scoreBoardArr);
 
@@ -175,10 +175,10 @@ namespace Yatzee3
             //string[,] scoreBoard = new string[playerCount, 17];
 
             //clearer console og indsætter scoreboard som det første så det altid står øverst/samme sted
-            public static void permScore()
+            public static void permScore(string[,] scoreBoard)
             {
                 Console.Clear();
-                Scoreboard.createScoreBoard2();
+                Scoreboard.PrintScoreboard(scoreBoard);
                
             }
 
@@ -233,26 +233,27 @@ namespace Yatzee3
             Console.Clear();
 
             // turene kører
-            int turns = scoreBoard.GetLength(0); // 4 ture til test
+            int turns = scoreBoard.GetLength(0) - 3; // minus 3 for spiller, bonus og bonus
 
             for (int t = 1; t <= turns; t++)
             {
                 //det bliver første spillers tur
                 for (int p = 1; p <= players; p++)
                 {
-                    Console.Clear();
+                    Scoreboard.permScore(scoreBoard);
                     Console.WriteLine($"Det er {scoreBoard[0, p]}; {t}. tur.\n");
 
                     Play.Throw(scoreBoard, p, t);
 
-
-                    Console.Clear();
-                    Scoreboard.PrintScoreboard(scoreBoard);
+                    Scoreboard.permScore(scoreBoard);
+                    //Console.Clear();
+                    //Scoreboard.PrintScoreboard(scoreBoard);
 
                     Console.Write("\nTryk inter for at fortsætte spillet.");
                     Console.ReadKey();
 
-                    Console.Clear();
+                    
+                    //Console.Clear();
                 }
             }
 
