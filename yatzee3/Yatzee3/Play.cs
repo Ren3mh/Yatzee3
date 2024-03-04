@@ -3,8 +3,7 @@ using static Yatzee3.Program;
 
 namespace Yatzee3
 {
-    // der skal laves exception handling ift. valg af score i "input", i Score.ChooseScore
-    // sørger for der ikke kan ændres på scores
+    // stor straight kan vælges med med terningerne {1,2,3,4,6} // fejl i Score.Kombinationer, new Kombinationer.Straight()
     internal class Play
     {
         public class Dice
@@ -113,7 +112,7 @@ namespace Yatzee3
            
             // array med terninger og initialiseres
             Dice[] dices = CreateDices();
-
+            /*
             // kastene starter
             for (int i = 0; i < throws; i++)
             {
@@ -142,23 +141,23 @@ namespace Yatzee3
                     DicesToKeep(dices);
                 }
             }
-
+            */
             // dices instantiates til test
-            /*
+            
             Play.Dice[] dices_ = new Play.Dice[5];
             for (int i = 0; i < 5; i++)
             {
                 dices_[i] = new Play.Dice();
 
             }
-            dices_[0].diceNumber = 1;
+            dices_[0].diceNumber = 5;
             dices_[1].diceNumber = 2;
-            dices_[2].diceNumber = 2;
-            dices_[3].diceNumber = 1;
+            dices_[2].diceNumber = 3;
+            dices_[3].diceNumber = 4;
             dices_[4].diceNumber = 1;
-            */
+            
 
-            int[] choosenScore = Score.ChooseScore(dices, scoreBoard, player);
+            int[] choosenScore = Score.ChooseScore(dices_, scoreBoard, player);
 
             scoreBoard[choosenScore[0], player] = Convert.ToString(choosenScore[1]);
 
@@ -394,22 +393,35 @@ namespace Yatzee3
                     return 0;
                 }
 
-                int Straight(int[] dicesNumbers, bool stor)
+                int Straight(int[] dicesNumbers, bool stor) //if stor == true; tjekker for stor straight og ellers lille straight
                 {
-                    int[] destinct = dicesNumbers.Distinct().ToArray();
+                    Array.Sort(dicesNumbers);
 
-                    if (destinct.Length < 4)
-                        return 0;
+                    int[] lilleStraight = { 1,2,3,4,5};
+                    int[] storStraight = { 2, 3, 4, 5, 6 };
 
-                    else if (destinct[0] == 6 && stor == true)
-                        return 20;
-
-                    else if (destinct[0] == 5 && stor == false)
-                        return 15;
-
+                    if (stor)
+                    {
+                        if (CheckSequence(storStraight))
+                            return 20;
+                    }
                     else
-                        return 0;
+                        if (CheckSequence(lilleStraight))
+                        return 15;
+                    
+                    // hvis hverken stor eller lille straight gav noget
+                    return 0;
 
+
+                    bool CheckSequence(int[] straight)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (straight[i] != dicesNumbers[i])
+                                return false;
+                        }
+                        return true;
+                    }
                 }
 
                 int Chancen(int[] dicesNumbers)
