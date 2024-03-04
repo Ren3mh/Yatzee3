@@ -112,7 +112,7 @@ namespace Yatzee3
            
             // array med terninger og initialiseres
             Dice[] dices = CreateDices();
-            /*
+            
             // kastene starter
             for (int i = 0; i < throws; i++)
             {
@@ -141,23 +141,23 @@ namespace Yatzee3
                     DicesToKeep(dices);
                 }
             }
-            */
-            // dices instantiates til test
             
-            Play.Dice[] dices_ = new Play.Dice[5];
-            for (int i = 0; i < 5; i++)
-            {
-                dices_[i] = new Play.Dice();
+            //// dices instantiates til test
+            
+            //Play.Dice[] dices_ = new Play.Dice[5];
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    dices_[i] = new Play.Dice();
 
-            }
-            dices_[0].diceNumber = 5;
-            dices_[1].diceNumber = 2;
-            dices_[2].diceNumber = 3;
-            dices_[3].diceNumber = 4;
-            dices_[4].diceNumber = 1;
+            //}
+            //dices_[0].diceNumber = 5;
+            //dices_[1].diceNumber = 2;
+            //dices_[2].diceNumber = 3;
+            //dices_[3].diceNumber = 4;
+            //dices_[4].diceNumber = 1;
             
 
-            int[] choosenScore = Score.ChooseScore(dices_, scoreBoard, player);
+            int[] choosenScore = Score.ChooseScore(dices, scoreBoard, player);
 
             scoreBoard[choosenScore[0], player] = Convert.ToString(choosenScore[1]);
 
