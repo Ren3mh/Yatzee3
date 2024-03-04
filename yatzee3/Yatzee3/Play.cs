@@ -138,26 +138,26 @@ namespace Yatzee3
                     RollDices(dices);
 
                     //terningerne vælges/gemmes
-                    DicesToKeep(dices);
+                    DicesToKeep(dices, scoreBoard);
                 }
             }
-            
+
             //// dices instantiates til test
-            
-            //Play.Dice[] dices_ = new Play.Dice[5];
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    dices_[i] = new Play.Dice();
 
-            //}
-            //dices_[0].diceNumber = 5;
-            //dices_[1].diceNumber = 2;
-            //dices_[2].diceNumber = 3;
-            //dices_[3].diceNumber = 4;
-            //dices_[4].diceNumber = 1;
-            
+            Play.Dice[] dices_ = new Play.Dice[5];
+            for (int i = 0; i < 5; i++)
+            {
+                dices_[i] = new Play.Dice();
 
-            int[] choosenScore = Score.ChooseScore(dices, scoreBoard, player);
+            }
+            dices_[0].diceNumber = 5;
+            dices_[1].diceNumber = 2;
+            dices_[2].diceNumber = 3;
+            dices_[3].diceNumber = 4;
+            dices_[4].diceNumber = 1;
+
+
+            int[] choosenScore = Score.ChooseScore(dices_, scoreBoard, player);
 
             scoreBoard[choosenScore[0], player] = Convert.ToString(choosenScore[1]);
 
@@ -177,7 +177,7 @@ namespace Yatzee3
             Dice.PrintDices(dices);
         }
 
-        static void DicesToKeep(Dice[] dices)
+        static void DicesToKeep(Dice[] dices, string[,] sB)
         {
            
             
@@ -227,8 +227,9 @@ namespace Yatzee3
                     break;
 
             } while (true);
-
-            Console.Clear();
+            
+            Scoreboard.permScore(sB);
+            //Console.Clear();
             PrintDices(dices);
         }
 
@@ -501,6 +502,7 @@ namespace Yatzee3
 
             void PrintPossibleScores()
             {
+                Scoreboard.permScore(scoreBoard);
                 Console.WriteLine("\nDine mulige Scores:");
                 for (int i = 1; i < 15; i++)
                 {
