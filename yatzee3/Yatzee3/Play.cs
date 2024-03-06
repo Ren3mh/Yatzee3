@@ -32,11 +32,11 @@ namespace Yatzee3
                 string leftStar = "| *     |\t";
                 string doubbleStar = "| *   * |\t";
 
-                string StringXTimes(string s, int times)
+                string StringXTimes(string oldString, int times)
                 {
                     string newString = "";
                     for (int i = 0; i < times; i++)
-                        newString += s;
+                        newString += oldString;
                     return newString;
                 }
 
@@ -54,6 +54,7 @@ namespace Yatzee3
                 "+-------+\n| *   * |\n| *   * |\n| *   * |\n+-------+"  // 6
                 */
 
+                // linjer der skal printes
                 string firstLine = "\n\nTerning 1\tTerning 2\tTerning 3\tTerning 4\tTerning 5\t";
                 string secondNLastLine = StringXTimes(topNBottom, 5);
                 string thirdLine = "";
@@ -403,22 +404,22 @@ namespace Yatzee3
 
                     if (stor)
                     {
-                        if (CheckSequence(storStraight))
+                        if (CheckSequence(dicesNumbers, storStraight))
                             return 20;
                     }
                     else
-                        if (CheckSequence(lilleStraight))
-                        return 15;
+                        if (CheckSequence(dicesNumbers, lilleStraight))
+                            return 15;
                     
                     // hvis hverken stor eller lille straight gav noget
                     return 0;
 
 
-                    bool CheckSequence(int[] straight)
+                    bool CheckSequence(int[] dices, int[] straight)
                     {
                         for (int i = 0; i < 5; i++)
                         {
-                            if (straight[i] != dicesNumbers[i])
+                            if (straight[i] != dices[i])
                                 return false;
                         }
                         return true;

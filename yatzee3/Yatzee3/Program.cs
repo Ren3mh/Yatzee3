@@ -20,11 +20,9 @@ namespace Yatzee3
             {
 
                 //Velkost og Regler
-
                 string velkomstBesked = "Hej nye spillere!\nVelkommen til yatzee!\n\n";
-                
 
-                Console.WriteLine(velkomstBesked + Program.StartNewGame.standardRegler);
+                Console.WriteLine(velkomstBesked + StartNewGame.standardRegler);
             }
 
             public static int ChoosePlayers()
@@ -209,7 +207,6 @@ namespace Yatzee3
                 scoreBoard = Scoreboard.createScoreBoard3();
 
             // test scoreboard
-
             /*
             scoreBoard[1, 1] = "5"; // sætter Spiller 1's 1'ere til 5 / til test
 
@@ -233,32 +230,30 @@ namespace Yatzee3
             Console.Clear();
 
             // turene kører
-            int turns = scoreBoard.GetLength(0) - 3; // minus 3 for spiller, bonus og bonus
+            int turns = 1; //scoreBoard.GetLength(0) - 3; // minus 3 for spiller, bonus og bonus
 
             for (int t = 1; t <= turns; t++)
             {
                 //det bliver første spillers tur
                 for (int p = 1; p <= players; p++)
                 {
+                    // printer vis tur det er
                     Scoreboard.permScore(scoreBoard);
                     Console.WriteLine($"Det er {scoreBoard[0, p]}; {t}. tur.\n");
 
+                    // udvælgelse af terninger og valg af score
                     Play.Throw(scoreBoard, p, t);
 
+                    // printer scoreboard
                     Scoreboard.permScore(scoreBoard);
-                    //Console.Clear();
-                    //Scoreboard.PrintScoreboard(scoreBoard);
 
                     Console.Write("\nTryk inter for at fortsætte spillet.");
                     Console.ReadKey();
-
-                    
-                    //Console.Clear();
                 }
             }
 
 
-
+            Scoreboard.permScore(scoreBoard);
             Console.WriteLine("Spillet er slut\n");
 
             int[] finalScores = new int[players];
