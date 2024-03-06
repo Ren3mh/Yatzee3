@@ -252,47 +252,63 @@ namespace Yatzee3
                 }
             }
 
+            EndOfGame(scoreBoard);
 
-            Scoreboard.permScore(scoreBoard);
-            Console.WriteLine("Spillet er slut\n");
-
-            int[] finalScores = new int[players];
-
-            for (int p = 1; p <= players; p++)
+            void EndOfGame(string[,] scoreboard)
             {
-                int finalScore = Scoreboard.CombinedScore(scoreBoard, p);
-                finalScores[p-1] = finalScore;
-                Console.WriteLine($"{scoreBoard[0,p]} fik {finalScore} point");
-            }
+                Scoreboard.permScore(scoreBoard);
+                Console.WriteLine("Spillet er slut\n");
 
-            FindWinner();
+                int[] finalScores = FindFinalScores(scoreboard);
 
-            void FindWinner()
-            {
-                int winnerScore = 0;
-                bool[] winners = new bool[players];
-                for (int i = 0; i < players; i++) { winners[i] = false; } // sætter alle players til win = false
+                PrintWinners(finalScores);
 
-                for (int i = 0; i < finalScores.Length; i++)
+                int[] FindFinalScores(string[,] scoreboard)
                 {
-                    if (finalScores[i] >= winnerScore)
+                    int[] finalScores = new int[players];
+
+                    for (int player = 1; player <= players; player++)
                     {
-                        winnerScore = finalScores[i];
-                        winners[i] = true;
+                        int finalScore = Scoreboard.CombinedScore(scoreBoard, player);
+                        finalScores[player - 1] = finalScore;
+                        Console.WriteLine($"{scoreBoard[0, player]} fik {finalScore} point");
                     }
+
+                    return finalScores;
                 }
 
-                Console.WriteLine("\n\t\tVinder(ne)!!");
-                for (int i = 0; i < players; i++)
+                void PrintWinners(int[] finalScores)
                 {
-                    if (winners[i])
-                        Console.WriteLine($"{scoreBoard[0, i+1]}, med  en score på hele: {winnerScore}!");
+                    int winnerScore = FindWinnerScore(finalScores);                   
+
+                    Console.WriteLine("\n\t\tVinder(ne)!!");
+                    for (int player = 0; player < players; player++)
+                    {
+                        if (finalScores[player] == winnerScore)
+                            Console.WriteLine($"{scoreBoard[0, player + 1]}, med  en score på hele: {winnerScore}!");
+                    }
+
+                    int FindWinnerScore(int[] finalScores)
+                    {
+                        int winnerScore = 0;
+
+                        for (int player = 0; player < finalScores.Length; player++)
+                        {
+                            if (finalScores[player] >= winnerScore)
+                            {
+                                winnerScore = finalScores[player];
+                            }
+                        }
+
+                        return winnerScore;
+                    }
+
                 }
+
+                Console.WriteLine("\nTak for spillet. Tast enter for at afslutte.");
+                Console.ReadKey();
             }
-
-            Console.WriteLine("\nTak for spillet. Tast enter for at afslutte.");
-            Console.ReadKey();
-
+            
         }
     }
 }

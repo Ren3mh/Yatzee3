@@ -397,7 +397,7 @@ namespace Yatzee3
 
                 int Straight(int[] dicesNumbers, bool stor) //if stor == true; tjekker for stor straight og ellers lille straight
                 {
-                    Array.Sort(dicesNumbers);
+                    Array.Sort(dicesNumbers); // { 3, 4, 2, 5, 1} -> { 1, 2, 3, 4, 5}
 
                     int[] lilleStraight = { 1,2,3,4,5};
                     int[] storStraight = { 2, 3, 4, 5, 6 };
